@@ -1,7 +1,18 @@
-export const formatValidationError = (errors) => {
-    if (!errors || !errors.issues) return 'Validation failed';
-
-    if (Array.isArray(errors.issues)) return errors.issues.map(i => i.message).join(', ');
-
-    return JSON.stringify(errors);
-}
+export const formatValidationError = (error) => {
+    if (!error || !error.issues) return 'Validation failed';
+  
+    const formatted = {};
+  
+    error.issues.forEach(issue => {
+      const field = issue.path[0] || 'input';
+  
+      if (!formatted[field]) {
+        formatted[field] = issue.message;
+      } else {
+        formatted[field] += `, ${issue.message}`;
+      }
+    });
+  
+    return formatted;
+  };
+  
