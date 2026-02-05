@@ -7,7 +7,7 @@
     "#config/*": "./src/config/*",
     "#controllers/*": "./src/controllers/*",
     "#middleware/*": "./src/middleware/*",
-    "#models/*": "./src/models/*",
+    "#models/*": "./models/*",
     "#routes/*": "./src/routes/*",
     "#services/*": "./src/services/*",
     "#utils/*": "./src/utils/*",
@@ -36,7 +36,8 @@
     "pg": "^8.18.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
-    "winston": "^3.19.0"
+    "winston": "^3.19.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
