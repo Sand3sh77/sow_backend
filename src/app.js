@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import logger from '#config/logger.js';
 
+import authRoutes from '#routes/auth.routes.js';
+
 const app = express();
 
 app.use(helmet());
@@ -23,5 +25,7 @@ app.get('/', (req, res) => {
   logger.info('Hello World!');
   res.send('Hello World!');
 });
+
+app.use('/api/auth', authRoutes);
 
 export default app;
