@@ -1,12 +1,12 @@
 import { formatValidationError } from "#utils/format.js";
-import { UserSchema } from "#schema/auth.schema.js";
+import { LanguageSchema } from "#schema/config.schema.js";
 
-export const validateUser = (req, res, next) => {
-    const validationResult = UserSchema.safeParse(req.body);
+export const validateLanguage = (req, res, next) => {
+    const validationResult = LanguageSchema.safeParse(req.body);
 
     if (!validationResult.success) {
         return res.status(400).json({
-            error: "User validation failed",
+            error: "Language validation failed",
             details: formatValidationError(validationResult.error),
         });
     }

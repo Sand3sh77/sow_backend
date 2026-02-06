@@ -9,6 +9,7 @@
     "#middleware/*": "./src/middleware/*",
     "#models/*": "./models/*",
     "#routes/*": "./src/routes/*",
+    "#schema/*": "./src/schema/*",
     "#services/*": "./src/services/*",
     "#utils/*": "./src/utils/*",
     "#validations/*": "./src/validations/*"

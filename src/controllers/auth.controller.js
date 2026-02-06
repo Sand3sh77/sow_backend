@@ -1,31 +1,21 @@
 import logger from "#config/logger.js";
-import { formatValidationError } from "#utils/format.js";
-import { signUpSchema } from "#validations/auth.validation.js";
-import { hashPassword } from "#utils/auth.js";
+import { hashPassword, verifyPassword } from "#utils/auth.js";
 import { jwttoken } from "#utils/jwt.js";
-import db from "#models/index.js";
+import { User } from "#models/index.js";
+import { cookies } from "#utils/cookies.js";
 
-export const signup = async (req, res, next) => {
+export const signup = async (req, res) => {
     try {
-        const validationResult = signUpSchema.safeParse(req.body);
+        const { name, email, password, role } = req.body;
 
-        if (!validationResult.success) {
-            return res.status(400).json({
-                error: "Validation failed",
-                details: formatValidationError(validationResult.error),
-            });
-        }
-
-        const { name, email, password, role } = validationResult.data;
-
-        const existingUser = await db.User.findOne({ where: { email } });
+        const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
             return res.status(409).json({ message: "Email already exists" });
         }
 
         const hashedPassword = await hashPassword(password);
 
-        const user = await db.Users.create({
+        const user = await User.create({
             name,
             email,
             password: hashedPassword,
@@ -45,15 +35,15 @@ export const signup = async (req, res, next) => {
         });
     } catch (e) {
         logger.error("Signup error", e);
-        next(e);
+        res.status(500).json({ message: "Internal server error" });
     }
 };
 
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await db.User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email } });
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
@@ -69,14 +59,10 @@ export const login = async (req, res, next) => {
 
         res.status(200).json({
             message: "Login successful",
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-            },
+            token,
         });
     } catch (e) {
-        next(e);
+        logger.error("Login error", e);
+        res.status(500).json({ message: "Internal server error" });
     }
 };
