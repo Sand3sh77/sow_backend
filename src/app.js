@@ -4,8 +4,10 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import logger from '#config/logger.js';
+import { initDB } from '#config/database.js';
 
 import authRoutes from '#routes/auth.routes.js';
+import configRoutes from '#routes/config.routes.js';
 
 const app = express();
 
@@ -21,11 +23,14 @@ app.use(morgan('combined', {
   }
 }))
 
+initDB();
+
 app.get('/', (req, res) => {
   logger.info('Hello World!');
   res.send('Hello World!');
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/config', configRoutes);
 
 export default app;
