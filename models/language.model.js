@@ -10,4 +10,10 @@ const Language = sequelize.define('Language', {
     timestamps: true,
 });
 
+Language.associate = (models) => {
+    Language.hasMany(models.Translation, {
+        foreignKey: "language_id",
+    });
+};
+
 export default Language;

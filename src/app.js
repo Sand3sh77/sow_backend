@@ -8,6 +8,8 @@ import { initDB } from '#config/database.js';
 
 import authRoutes from '#routes/auth.routes.js';
 import configRoutes from '#routes/config.routes.js';
+import translationRoutes from '#routes/translation.routes.js';
+import productRoutes from '#routes/product.routes.js';
 
 const app = express();
 
@@ -32,5 +34,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/config', configRoutes);
+app.use('/api/translation', translationRoutes);
+app.use('/api/products', productRoutes);
 
 export default app;

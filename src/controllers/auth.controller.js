@@ -6,7 +6,7 @@ import { cookies } from "#utils/cookies.js";
 
 export const signup = async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, location, avatar } = req.body;
 
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
@@ -19,7 +19,8 @@ export const signup = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role,
+            location,
+            avatar,
         });
 
         logger.info(`User registered successfully: ${email}`);
@@ -30,7 +31,8 @@ export const signup = async (req, res) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                role: user.role,
+                location: user.location,
+                avatar: user.avatar,
             },
         });
     } catch (e) {
@@ -59,6 +61,13 @@ export const login = async (req, res) => {
 
         res.status(200).json({
             message: "Login successful",
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                location: user.location,
+                avatar: user.avatar,
+            },
             token,
         });
     } catch (e) {
