@@ -1,7 +1,5 @@
 import logger from "#config/logger.js";
-import Language from "#models/language.model.js";
-import Translation from "#models/translation.model.js";
-import TranslationKey from "#models/translationKey.model.js";
+import { Language, Translation, TranslationKey } from "#models/index.js";
 
 export const getTranslations = async (req, res) => {
     try {

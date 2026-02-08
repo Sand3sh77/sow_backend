@@ -1,7 +1,7 @@
 import logger from "#config/logger.js";
-import Language from "#models/language.model.js";
+import { Language } from "#models/index.js";
 
-export const getLanguages = async (req, res) => {
+export const getConfig = async (req, res) => {
     try {
         const languages = await Language.findAll();
 
@@ -15,7 +15,7 @@ export const getLanguages = async (req, res) => {
         logger.error("Get language error", e);
         res.status(500).json({ message: "Internal server error" });
     }
-}
+};
 
 export const addLanguage = async (req, res) => {
     try {
@@ -36,4 +36,4 @@ export const addLanguage = async (req, res) => {
         logger.error("Post language error", e);
         res.status(500).json({ message: "Internal server error" });
     }
-}
+};

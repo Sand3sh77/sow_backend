@@ -1,10 +1,11 @@
 import express from "express";
-import { addLanguage, getLanguages } from "#controllers/config.controller.js";
+import { addLanguage, getConfig } from "#controllers/config.controller.js";
 import { validateLanguage } from "#validations/config.validation.js";
+import { verifyToken } from "#middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/languages", getLanguages);
-router.post("/languages", validateLanguage, addLanguage);
+router.get("/", getConfig);
+router.post("/languages", verifyToken, validateLanguage, addLanguage);
 
 export default router;
