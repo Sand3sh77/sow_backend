@@ -21,7 +21,6 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
     try {
         const products = await Product.findAll({
-            where: { user_id: req.user.id },
             order: [["createdAt", "DESC"]],
         });
 
