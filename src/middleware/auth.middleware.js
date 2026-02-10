@@ -1,6 +1,7 @@
 
 import { jwttoken } from "#utils/jwt.js";
 import { User } from "#models/index.js";
+import logger from "#config/logger.js";
 
 export const verifyToken = async (req, res, next) => {
     try {
@@ -32,7 +33,7 @@ export const verifyToken = async (req, res, next) => {
         };
 
         next();
-    } catch (error) {
+    } catch (e) {
         logger.error("Token verify error", e);
         res.status(500).json({ message: "Internal server error" });
     }
@@ -57,7 +58,7 @@ export const verifyTokenAndAuthorization = async (req, res, next) => {
                 });
             }
         });
-    } catch (error) {
+    } catch (e) {
         logger.error("User authorization error", e);
         res.status(500).json({ message: "Internal server error" });
     }
