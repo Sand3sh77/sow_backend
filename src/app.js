@@ -19,17 +19,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(morgan('combined', {
-  stream: {
-    write: (message) => logger.info(message.trim())
-  }
-}))
+app.use(
+  morgan('combined', {
+    stream: {
+      write: message => logger.info(message.trim()),
+    },
+  })
+);
 
 initDB();
 
 app.get('/', (req, res) => {
   logger.info('Hello World!');
-  res.send('Hello World!');
+  res.send('Hello Worldd!');
 });
 
 app.use('/api/auth', authRoutes);
