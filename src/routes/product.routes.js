@@ -1,11 +1,12 @@
 import express from "express";
-import { validateProduct } from "#validations/product.validation.js";
-import { getProducts, createProduct } from "#controllers/product.controller.js";
+import { validateEditProduct, validateProduct } from "#validations/product.validation.js";
+import { getProducts, createProduct, editProduct } from "#controllers/product.controller.js";
 import { verifyToken } from "#middleware/auth.middleware.js";
 
 const router = express.Router();
 
 router.get("/", verifyToken, getProducts);
 router.post("/", verifyToken, validateProduct, createProduct);
+router.patch("/:id", verifyToken, validateEditProduct, editProduct);
 
 export default router;
